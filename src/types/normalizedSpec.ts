@@ -1,5 +1,14 @@
+export type HttpMethod =
+  | 'GET'
+  | 'POST'
+  | 'PUT'
+  | 'PATCH'
+  | 'DELETE'
+  | 'OPTIONS'
+  | 'HEAD'
+
 export interface NormalizedOperation {
-  method: string
+  method: HttpMethod
   path: string
   operationId?: string
 }
