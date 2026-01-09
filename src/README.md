@@ -1,4 +1,4 @@
-# openapi-testgen
+# openapi-api-testgen
 
 Generate deterministic, editable Supertest API test boilerplate from OpenAPI specifications.
 
@@ -22,7 +22,7 @@ They do not generate **owned, editable API test code** that teams can commit and
 
 ## What this tool does
 
-`openapi-testgen` bridges that gap.
+`openapi-api-testgen` bridges that gap.
 
 It:
 
@@ -53,7 +53,7 @@ This tool focuses purely on **test generation**, not orchestration.
 ## Installation
 
 ```bash
-npm install -D openapi-testgen
+npm install -D openapi-api-testgen
 ```
 
 ## Usage

@@ -6,7 +6,7 @@
   "main": "./dist/index.js",
   "files": ["dist"],
   "bin": {
-    "openapi-testgen": "./dist/cli.js"
+    "openapi-api-testgen": "./dist/cli.js"
   },
   "scripts": {
     "clean": "rm -rf dist",
