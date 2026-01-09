@@ -125,7 +125,6 @@ Generated code is meant to be read, reviewed, and modified.
 
 - Schema-based fallback when examples are missing
 - Richer documentation comments in generated tests
-- Additional renderers (e.g. RestAssured)
 - Optional coverage and analysis reporting
 
 ## Philosophy
