@@ -5,64 +5,39 @@ import { extractExampleTestCases } from './extractor/exampleExtractor.js'
 import { renderSupertest } from './renderer/supertestRenderer.js'
 import { writeSingleFile } from './writer/writeFile.js'
 
-const specPath = process.argv[2]
+export async function run(argv: string[]) {
+  const specPath = argv[2]
 
-if (!specPath) {
-  console.error('❌ Please provide path to OpenAPI spec')
-  console.error('Usage: npx ts-node src/index.ts <openapi.yaml>')
-  process.exit(1)
+  const outIndex = argv.indexOf('--out')
+  const outDir = outIndex !== -1 ? argv[outIndex + 1] : undefined
+
+  const overwrite = argv.includes('--overwrite')
+
+  if (!specPath || !outDir) {
+    printUsage()
+    process.exit(1)
+  }
+
+  const api = await parseOpenApiSpec(specPath)
+  const normalized = normalizeOpenApi(api)
+  const tests = extractExampleTestCases(api, normalized.operations)
+
+  const output = renderSupertest(tests)
+
+  writeSingleFile(
+    outDir,
+    'api.generated.test.ts',
+    output,
+    overwrite
+  )
 }
 
-// Test step 1
-// const api = await parseOpenApiSpec(specPath)
+function printUsage() {
+  console.log(`
+Usage:
+  openapi-testgen <spec-path> --out <dir> [--overwrite]
 
-// console.log('✅ OpenAPI spec parsed successfully')
-// console.log(`Title: ${api.info.title}`)
-// console.log(`Version: ${api.info.version}`)
-
-// Test step 2
-
-const api = await parseOpenApiSpec(specPath)
-const normalized = normalizeOpenApi(api)
-const tests = extractExampleTestCases(api, normalized.operations)
-const output = renderSupertest(tests)
-
-// console.log('\nDiscovered API operations:\n')
-
-// for (const op of normalized.operations) {
-//   const id = op.operationId ? ` (${op.operationId})` : ''
-//   console.log(`${op.method} ${op.path}${id}`)
-// }
-
-// console.log(`\nTotal endpoints: ${normalized.operations.length}\n`)
-
-// console.log(`\nGenerated ${tests.length} test cases:\n`)
-// for (const t of tests) {
-//   console.log(`- ${t.id}`)
-// }
-
-
-console.log(output)
-
-// TEMP: hardcode output location
-const outDir = 'tmp'
-const fileName = 'api.generated.test.ts'
-
-if (!specPath || !outDir) {
-  console.error('Usage: openapi-testgen <spec> --out <dir> [--overwrite]')
-  process.exit(1)
+Example:
+  openapi-testgen api.yaml --out tests/api
+`)
 }
-
-
-writeSingleFile(
-  outDir,
-  'api.generated.test.ts',
-  output,
-  true // overwrite
-)
-
-
-runCli(specPath).catch((err) => {
-  console.error('❌ Error:', err.message)
-  process.exit(1)
-})

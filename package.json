@@ -4,9 +4,13 @@
   "type": "module",
   "description": "",
   "main": "index.js",
+  "bin": {
+    "openapi-testgen": "./dist/cli.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --loader ts-node/esm src/index.ts"
+    "clean": "rm -rf dist",
+    "build": "npm run clean && tsc",
+    "dev": "node --loader ts-node/esm src/cli.ts"
   },
   "keywords": [],
   "author": "",
