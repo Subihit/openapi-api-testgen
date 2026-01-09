@@ -40,11 +40,11 @@ The generated tests are intended to be a **starting point**, not a black box.
 
 This is intentional:
 
-- ❌ No end-to-end or user-journey testing
-- ❌ No fuzzing or security testing
-- ❌ No test execution
-- ❌ No AI-generated test logic
-- ❌ No runtime contract validation
+- No end-to-end or user-journey testing
+- No fuzzing or security testing
+- No test execution
+- No AI-generated test logic
+- No runtime contract validation
 
 This tool focuses purely on **test generation**, not orchestration.
 
