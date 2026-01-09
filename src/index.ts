@@ -3,6 +3,7 @@ import { parseOpenApiSpec } from './parser/openapiParser.js'
 import { normalizeOpenApi } from './parser/openapiParser.js'
 import { extractExampleTestCases } from './extractor/exampleExtractor.js'
 import { renderSupertest } from './renderer/supertestRenderer.js'
+import { writeSingleFile } from './writer/writeFile.js'
 
 const specPath = process.argv[2]
 
@@ -42,6 +43,24 @@ const output = renderSupertest(tests)
 
 
 console.log(output)
+
+// TEMP: hardcode output location
+const outDir = 'tmp'
+const fileName = 'api.generated.test.ts'
+
+if (!specPath || !outDir) {
+  console.error('Usage: openapi-testgen <spec> --out <dir> [--overwrite]')
+  process.exit(1)
+}
+
+
+writeSingleFile(
+  outDir,
+  'api.generated.test.ts',
+  output,
+  true // overwrite
+)
+
 
 runCli(specPath).catch((err) => {
   console.error('❌ Error:', err.message)
