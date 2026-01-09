@@ -1,5 +1,5 @@
 {
-  "name": "openapi-testgen",
+  "name": "openapi-api-testgen",
   "version": "0.1.0",
   "type": "module",
   "description": "Generate deterministic, editable Supertest API tests from OpenAPI specifications",
