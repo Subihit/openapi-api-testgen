@@ -41,5 +41,7 @@
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
-  }
+  },
+   "include": ["src"],
+  "exclude": ["tmp", "dist", "node_modules"]
 }
